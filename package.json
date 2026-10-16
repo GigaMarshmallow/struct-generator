@@ -3,6 +3,12 @@
   "displayName": "struct-generator",
   "description": "Generates C++ structs from text",
   "version": "0.0.1",
+  "publisher": "gigamarshmallow",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GigaMarshmallow/struct-generator.git"
+  },
   "engines": {
     "vscode": "^1.140.0"
   },

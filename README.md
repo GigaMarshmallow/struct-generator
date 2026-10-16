@@ -1,71 +1,83 @@
-# struct-generator README
+# Struct Generator
 
-This is the README for your extension "struct-generator". After writing up a brief description, we recommend including the following sections.
+**Автор:** Цырлина Мария Игоревна, группа M3115  
+**IDE:** Visual Studio Code  
+**Язык:** TypeScript
 
-## Features
+Расширение для VS Code, которое генерирует C++ структуры из текстового описания.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Что делает
 
-For example if there is an image subfolder under your extension project workspace:
+По клику на кнопку в статус-баре открывается форма. Пользователь вводит описание структуры в компактном формате одной строкой:
 
-\!\[feature X\]\(images/feature-x.png\)
+    Person: string name, int age, string email
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Расширение парсит строку, проверяет корректность данных и генерирует готовый C++ код:
 
-## Requirements
+    struct Person {
+        std::string name;
+        int age;
+        std::string email;
+    };
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+Результат можно скопировать в буфер обмена одной кнопкой.
 
-## Extension Settings
+## Возможности
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+- Кнопка быстрого доступа в статус-баре VS Code.
+- Ввод описания структуры одной строкой.
+- Парсинг имени структуры и списка полей.
+- Валидация:
+  - проверка имени структуры (идентификатор C++);
+  - проверка каждого поля;
+  - проверка на дубликаты имён полей;
+  - понятные сообщения об ошибках.
+- Автоматическая генерация C++ кода с правильными отступами.
+- Копирование результата в буфер обмена.
+- Поддержка типов с пробелами (unsigned int, long long).
 
-For example:
+## Формат ввода
 
-This extension contributes the following settings:
+    ИмяСтруктуры: тип1 имя1, тип2 имя2, тип3 имя3
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+Примеры:
 
-## Known Issues
+- Person: string name, int age, string email
+- Point: int x, int y
+- Student: unsigned int id, std::string fullName, double gpa
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## Установка
 
-## Release Notes
+1. Скачай файл .vsix из релизов репозитория.
+2. Открой VS Code, панель расширений (Ctrl+Shift+X).
+3. Три точки в правом верхнем углу, пункт Install from VSIX...
+4. Выбери файл.
 
-Users appreciate release notes as you update your extension.
+Или через командную строку:
 
-### 1.0.0
+    code --install-extension struct-generator-0.0.1.vsix
 
-Initial release of ...
+## Использование
 
-### 1.0.1
+1. Установи расширение.
+2. Открой любую папку в VS Code.
+3. Внизу слева появится кнопка Create Struct.
+4. Нажми на неё.
+5. Введи описание структуры.
+6. Нажми Обработать.
+7. Скопируй результат кнопкой Скопировать.
 
-Fixed issue #.
+## Разработка
 
-### 1.1.0
+    npm install
+    npm run watch
 
-Added features X, Y, and Z.
+Запуск отладки: F5 в VS Code.
 
----
+Упаковка в .vsix:
 
-## Following extension guidelines
+    vsce package
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+## Лицензия
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+MIT
