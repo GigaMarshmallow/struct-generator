@@ -1,12 +1,10 @@
 import * as vscode from 'vscode';
 
-// Данные одного поля структуры
 interface Field {
-	type: string;  // например, "int"
-	name: string;  // например, "age"
+	type: string;
+	name: string;
 }
 
-// Данные всей структуры
 interface StructData {
 	structName: string;
 	fields: Field[];
@@ -32,9 +30,6 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(cmd, statusBarItem);
 }
 
-/**
- * Открывает webview-форму для создания структуры.
- */
 function createStructCommand() {
 	const panel = vscode.window.createWebviewPanel(
 		'structForm',
@@ -47,7 +42,6 @@ function createStructCommand() {
 
 	panel.webview.html = getFormHtml();
 
-	// Запоминаем последний сгенерированный код, чтобы кнопка «Скопировать» знала, что копировать
 	let lastCode = '';
 
 	panel.webview.onDidReceiveMessage((message) => {
@@ -75,9 +69,6 @@ function createStructCommand() {
 	});
 }
 
-/**
- * Парсит строку вида "Person: string name, int age".
- */
 function parseStructString(input: string): StructData {
 	const trimmed = input.trim();
 	if (trimmed === '') {
@@ -125,9 +116,6 @@ function parseStructString(input: string): StructData {
 	return { structName, fields };
 }
 
-/**
- * Генерирует C++ код структуры.
- */
 function generateStructCode(data: StructData): string {
 	const lines = [`struct ${data.structName} {`];
 	for (const field of data.fields) {
@@ -137,9 +125,6 @@ function generateStructCode(data: StructData): string {
 	return lines.join('\n');
 }
 
-/**
- * Собирает HTML для формы.
- */
 function getFormHtml(): string {
 	return `<!DOCTYPE html>
 <html lang="ru">
